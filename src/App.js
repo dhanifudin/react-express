@@ -12,6 +12,8 @@ import Login          from './routes/Login';
 import Register       from './routes/Register';
 import ForgotPassword from './routes/ForgotPassword';
 import ResetPassword  from './routes/ResetPassword';
+import Payment        from './routes/Payment';
+import PaymentStatus  from './routes/PaymentStatus';
 
 function Nav() {
   const dispatch = useDispatch();
@@ -29,6 +31,7 @@ function Nav() {
       <div className="nav-links">
         <Link to="/posts"><strong>Posts</strong></Link>
         {isAuthenticated && <Link to="/posts/new">New Post</Link>}
+        {isAuthenticated && <Link to="/payment">Payment</Link>}
       </div>
       <div className="nav-auth">
         {isAuthenticated ? (
@@ -63,6 +66,8 @@ function AppRoutes() {
           <Route path="/register"                     element={<Register />} />
           <Route path="/forgot-password"              element={<ForgotPassword />} />
           <Route path="/users/reset-password/:token"   element={<ResetPassword />} />
+          <Route path="/payment"                      element={<Payment />} />
+          <Route path="/payment/status"               element={<PaymentStatus />} />
         </Routes>
       </div>
     </>
