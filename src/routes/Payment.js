@@ -16,6 +16,7 @@ export default function Payment() {
   const { loading, error } = useSelector((state) => state.payment);
   const isAuthenticated = useSelector((state) => !!state.auth.token);
 
+  const [orderId] = useState(`ORDER-${Date.now()}`);
   const [grossAmount, setGrossAmount] = useState("");
   const [itemName, setItemName] = useState("");
   const [paymentResult, setPaymentResult] = useState(null);
@@ -37,7 +38,7 @@ export default function Payment() {
     try {
       result = await dispatch(
         createSnapToken({
-          order_id: `ORDER-${Date.now()}`,
+          order_id: orderId,
           gross_amount: Number(grossAmount),
           item_details: [{ id: "1", price: Number(grossAmount), quantity: 1, name: itemName }],
         }),
@@ -99,6 +100,8 @@ export default function Payment() {
       )}
 
       <form className="form" onSubmit={handleSubmit}>
+        <label>Order ID</label>
+        <input value={orderId} readOnly style={{ color: '#888', background: '#f5f5f5' }} />
         <label>Item Name</label>
         <input
           value={itemName}
